@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Avaliador de Expressões</string>
+    <string name="insert_expression_text">Insira Expressão</string>
+    <string name="evaluate_text">Avaliar</string>
+</resources>

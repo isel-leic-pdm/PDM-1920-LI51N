@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PrefixExpressionEvaluator</string>
+    <string name="insert_expression_text">Insert Expression</string>
+    <string name="evaluate_text">Evaluate</string>
 </resources>
