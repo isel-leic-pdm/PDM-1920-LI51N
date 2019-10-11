@@ -7,9 +7,10 @@
     tools:context=".MainActivity">
 
     <isel.leic.i1920.pdm.li51n.scrible.ScribleView
+
+        android:id="@+id/scrible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </isel.leic.i1920.pdm.li51n.scrible.ScribleView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
