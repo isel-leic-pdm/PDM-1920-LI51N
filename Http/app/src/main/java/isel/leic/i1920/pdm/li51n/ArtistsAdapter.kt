@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import isel.leic.i1920.pdm.li51n.lastfm.dto.ArtistDto
+import isel.leic.i1920.pdm.li51n.viewmodel.ArtistsViewModel
 
 const val ARTIST_MBID = "ARTIST_MBID"
 const val ARTIST_NAME = "ARTIST_NAME"

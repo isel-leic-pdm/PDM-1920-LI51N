@@ -8,7 +8,10 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import isel.leic.i1920.pdm.li51n.lastfm.dto.GetAlbumsDto
 import isel.leic.i1920.pdm.li51n.lastfm.dto.SearchDto
+import isel.leic.i1920.pdm.li51n.utils.AppError
+import isel.leic.i1920.pdm.li51n.utils.HttpRequests
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
@@ -27,32 +30,31 @@ const val LASTFM_GET_ALBUM_INFO = (LASTFM_HOST
 
 class LastfmWebApi(ctx: Context) {
     val TAG = LastfmWebApi::class.java.name
+    val httpRequestes = HttpRequests(ctx)
 
 
-    // Instantiate the RequestQueue.
-    val queue = Volley.newRequestQueue(ctx)
-    val gson = Gson()
 
     fun searchArtist(
         name: String,
         page: Int,
         onSuccess: (SearchDto) -> Unit,
-        onError: (VolleyError) -> Unit)
+        onError: (AppError) -> Unit)
     {
         val url = String.format(LASTFM_SEARCH, name, page)
 
         Log.i(TAG, "Making Request to Uri ${url}")
 
-        // Request a string response from the provided URL.
-        val stringRequest = StringRequest(
-            Request.Method.GET,
-            url,
-            Response.Listener<String> { response ->
-                val dto = gson.fromJson<SearchDto>(response, SearchDto::class.java)
-                onSuccess(dto)
-            },
-            Response.ErrorListener { err -> onError(err)})
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest)
+
+        httpRequestes.get(url, onSuccess, onError)
+
+    }
+
+    fun getAlbums(mbid: String,
+                   page: Int,
+                   onSuccess: (GetAlbumsDto) -> Unit,
+                   onError: (AppError) -> Unit) {
+
+        val url = String.format(LASTFM_GET_ALBUMS, mbid, page)
+        httpRequestes.get(url, onSuccess, onError)
     }
 }

@@ -16,16 +16,16 @@ class LastfmWebApiBlocking {
 
     fun searchArtist(name: String, page: Int) : SearchDto {
         val url = String.format(LASTFM_SEARCH, name, page)
-        val connection = URL(url).openStream()
-        val reader = BufferedReader(InputStreamReader(connection))
+        val inputStream = URL(url).openStream()
+        val reader = BufferedReader(InputStreamReader(inputStream))
         val gson = Gson()
         return gson.fromJson<SearchDto>(reader, SearchDto::class.java)
     }
 
     fun getAalbums(mbid: String, page: Int) : GetAlbumsDto {
         val url = String.format(LASTFM_GET_ALBUMS, mbid, page)
-        val connection = URL(url).openStream()
-        val reader = BufferedReader(InputStreamReader(connection))
+        val inputStream = URL(url).openStream()
+        val reader = BufferedReader(InputStreamReader(inputStream))
         val gson = Gson()
         return gson.fromJson<GetAlbumsDto>(reader, GetAlbumsDto::class.java)
     }
