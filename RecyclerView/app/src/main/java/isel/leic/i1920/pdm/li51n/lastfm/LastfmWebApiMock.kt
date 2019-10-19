@@ -4,16 +4,16 @@ import isel.leic.i1920.pdm.li51n.lastfm.dto.AlbumDto
 import isel.leic.i1920.pdm.li51n.lastfm.dto.ArtistDto
 import isel.leic.i1920.pdm.li51n.lastfm.dto.ImageDto
 
-class LastfmWebApiMock() {
+class LastfmWebApiMock() : LastfmWebApi {
 
-    fun searchArtist(name: String, page: Int) : Array<ArtistDto> {
+    override fun searchArtist(name: String, page: Int) : Array<ArtistDto> {
         if(name.toLowerCase() != "muse")
             throw IllegalArgumentException("Mock API only supports query for muse band!")
         return MUSE
     }
 
-    fun getAlbums(mbid: String, page: Int) : List<AlbumDto> {
-        return ALBUMS.filter { it.artist.mbid == mbid }
+    override fun getAlbums(mbid: String, page: Int) : Array<AlbumDto> {
+        return ALBUMS.filter { it.artist.mbid == mbid }.toTypedArray()
     }
 
     companion object {

@@ -3,12 +3,13 @@ package isel.leic.i1920.pdm.li51n
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import isel.leic.i1920.pdm.li51n.lastfm.LastfmWebApiMock
+import isel.leic.i1920.pdm.li51n.lastfm.LastfmWebApi
+import isel.leic.i1920.pdm.li51n.lastfm.createLastFmWebApi
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val lastfm : LastfmWebApiMock by lazy { LastfmWebApiMock() }
+    val lastfm : LastfmWebApi by lazy { createLastFmWebApi() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

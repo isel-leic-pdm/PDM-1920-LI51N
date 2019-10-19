@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import isel.leic.i1920.pdm.li51n.lastfm.dto.AlbumDto
 
-class AlbumsAdapter(private val albums: List<AlbumDto>)
+class AlbumsAdapter(private val albums: Array<AlbumDto>)
     : RecyclerView.Adapter<AlbumViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {

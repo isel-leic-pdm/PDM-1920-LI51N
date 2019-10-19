@@ -1,20 +1,19 @@
 package isel.leic.i1920.pdm.li51n.lastfm
 
-import android.content.Context
-
-const val LASTFM_API_KEY = "038cde478fb0eff567330587e8e981a4"
-const val LASTFM_HOST = "http://ws.audioscrobbler.com/2.0/"
-const val LASTFM_SEARCH = (LASTFM_HOST
-        + "?method=artist.search&format=json&artist=%s&page=%d&api_key="
-        + LASTFM_API_KEY)
-const val LASTFM_GET_ALBUMS = (LASTFM_HOST
-        + "?method=artist.gettopalbums&format=json&mbid=%s&page=%d&api_key="
-        + LASTFM_API_KEY)
-const val LASTFM_GET_ALBUM_INFO = (LASTFM_HOST
-        + "?method=album.getinfo&format=json&mbid=%s&api_key="
-        + LASTFM_API_KEY)
-
-class LastfmWebApi(ctx: Context) {
+import isel.leic.i1920.pdm.li51n.lastfm.dto.AlbumDto
+import isel.leic.i1920.pdm.li51n.lastfm.dto.ArtistDto
 
 
+interface LastfmWebApi {
+    fun searchArtist(name: String, page: Int) : Array<ArtistDto>
+    fun getAlbums(mbid: String, page: Int) : Array<AlbumDto>
 }
+
+
+fun createLastFmWebApi() : LastfmWebApi =
+    LastfmWebApiMock()
+
+    // If this implementation is used an android.os.NetworkOnMainThreadException is thrown because Android
+    // detects blocking network activity on the User Interface Thread
+    //LastfmWebApiBlocking()
+
