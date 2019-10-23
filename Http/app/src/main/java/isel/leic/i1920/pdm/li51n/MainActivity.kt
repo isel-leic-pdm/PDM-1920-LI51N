@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
-import org.geniuz.lastfm.LastfmWebApi
 import isel.leic.i1920.pdm.li51n.viewmodel.ArtistsViewModel
 
 const val TAG : String = "GENIUZ_APP"

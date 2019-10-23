@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import isel.leic.i1920.pdm.li51n.lastfm.dto.ArtistDto
 import isel.leic.i1920.pdm.li51n.utils.AppError
-import org.geniuz.lastfm.LastfmWebApi
+import org.geniuz.lastfm.LastfmWebApiImpl
 
 class ArtistsViewModel(application: Application) : AndroidViewModel(application) {
     var artists : Array<ArtistDto> = emptyArray()
@@ -12,7 +12,7 @@ class ArtistsViewModel(application: Application) : AndroidViewModel(application)
         lastfm.searchArtist(name, page, { successHandler(it.results.artistMatches.artist) }, errorHandler)
     }
 
-    val lastfm : LastfmWebApi by lazy {
-        LastfmWebApi(application)
+    val lastfm : LastfmWebApiImpl by lazy {
+        LastfmWebApiImpl(application)
     }
 }
