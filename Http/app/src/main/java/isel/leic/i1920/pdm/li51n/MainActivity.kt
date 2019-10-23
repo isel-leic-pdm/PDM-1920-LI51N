@@ -44,13 +44,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
          */
         Log.v(TAG, "**** FETCHING from Last.fm...")
         val name = txtSearchArtistName.text.toString()
-        model.searchArtist(name, 1, {artists ->
+        model.searchArtist(name, 1, {
             /**
              * Update UI
              */
-            model.artists = artists.results.artistMatches.artist
+            model.artists = it
             adapter.notifyDataSetChanged()
-            txtTotalArtists.text = artists.results.totalResults.toString()
+            txtTotalArtists.text = it.size.toString()
         }, {err -> throw err})
 
     }

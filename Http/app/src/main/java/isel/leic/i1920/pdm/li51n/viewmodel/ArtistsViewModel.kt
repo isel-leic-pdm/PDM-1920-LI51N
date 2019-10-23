@@ -1,16 +1,18 @@
 package isel.leic.i1920.pdm.li51n.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import isel.leic.i1920.pdm.li51n.lastfm.dto.ArtistDto
+import isel.leic.i1920.pdm.li51n.utils.AppError
 import org.geniuz.lastfm.LastfmWebApi
 
-class ArtistsViewModel(var artists : Array<ArtistDto> = emptyArray()) : ViewModel() {
-    fun searchArtist(name: String, i: Int, any: Any, any1: Any) {
-
+class ArtistsViewModel(application: Application) : AndroidViewModel(application) {
+    var artists : Array<ArtistDto> = emptyArray()
+    fun searchArtist(name: String, page: Int, successHandler: (Array<ArtistDto>) -> Unit, errorHandler: (AppError) -> Unit) {
+        lastfm.searchArtist(name, page, { successHandler(it.results.artistMatches.artist) }, errorHandler)
     }
 
     val lastfm : LastfmWebApi by lazy {
-        LastfmWebApi()
+        LastfmWebApi(application)
     }
 }
