@@ -1,19 +1,27 @@
 package isel.leic.i1920.pdm.li51n.lastfm
 
-import isel.leic.i1920.pdm.li51n.lastfm.dto.AlbumDto
-import isel.leic.i1920.pdm.li51n.lastfm.dto.ArtistDto
-import isel.leic.i1920.pdm.li51n.lastfm.dto.ImageDto
+import isel.leic.i1920.pdm.li51n.lastfm.dto.*
+import isel.leic.i1920.pdm.li51n.utils.AppError
 
-class LastfmWebApiMock() {
+class LastfmWebApiMock() : LastFmWebApi {
 
-    fun searchArtist(name: String, page: Int) : Array<ArtistDto> {
+    override fun searchArtist(
+        name: String,
+        page: Int,
+        onSuccess: (SearchDto) -> Unit,
+        onError: (AppError) -> Unit
+    ) {
         if(name.toLowerCase() != "muse")
             throw IllegalArgumentException("Mock API only supports query for muse band!")
-        return MUSE
+        onSuccess(SearchDto(ResultsDto(MUSE.size, ArtistMatchesDto(MUSE))))
     }
 
-    fun getAlbums(mbid: String, page: Int) : List<AlbumDto> {
-        return ALBUMS.filter { it.artist.mbid == mbid }
+    override fun getAlbums(mbid: String,
+                           page: Int,
+                           onSuccess: (GetAlbumsDto) -> Unit,
+                           onError: (AppError) -> Unit
+    ) {
+        onSuccess(GetAlbumsDto(TopAlbumsDto(ALBUMS.filter { it.artist.mbid == mbid }.toTypedArray())))
     }
 
     companion object {
