@@ -5,9 +5,11 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import isel.leic.i1920.pdm.li51n.lastfm.dto.ArtistDto
 import kotlinx.android.synthetic.main.activity_main.*
 import isel.leic.i1920.pdm.li51n.viewmodel.ArtistsViewModel
 
@@ -43,14 +45,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
          */
         Log.v(TAG, "**** FETCHING from Last.fm...")
         val name = txtSearchArtistName.text.toString()
-        model.searchArtist(name, 1, {
-            /**
-             * Update UI
-             */
-            model.artists = it
-            adapter.notifyDataSetChanged()
-            txtTotalArtists.text = it.size.toString()
-        }, {err -> throw err})
+        model.searchArtist(name, 1)
 
+        model.artists.observe(this, object: Observer<Array<ArtistDto>> {
+            override fun onChanged(artists: Array<ArtistDto>) {
+                adapter.notifyDataSetChanged()
+                txtTotalArtists.text = artists.size.toString()
+            }
+
+        })
     }
 }

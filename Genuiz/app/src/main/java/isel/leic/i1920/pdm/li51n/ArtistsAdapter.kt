@@ -24,10 +24,10 @@ class ArtistsAdapter(val model: ArtistsViewModel)
         return ArtistViewHolder(artistsView)
     }
 
-    override fun getItemCount(): Int = model.artists.size
+    override fun getItemCount(): Int = model.artists.value?.size ?: 0
 
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
-        holder.bindTo(model.artists[position])
+        model.artists.value?.get(position)?.let { holder.bindTo(it) }
     }
 }
 
