@@ -2,16 +2,21 @@ package isel.leic.i1920.pdm.li51n
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import isel.leic.i1920.pdm.li51n.lastfm.LastFmWebApi
 import isel.leic.i1920.pdm.li51n.lastfm.dto.ArtistDto
 import kotlinx.android.synthetic.main.activity_main.*
 import isel.leic.i1920.pdm.li51n.viewmodel.ArtistsViewModel
+import org.geniuz.lastfm.LastfmWebApiImpl
 
 const val TAG : String = "GENIUZ_APP"
 
@@ -22,7 +27,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         ArtistsAdapter(model)
     }
     val model : ArtistsViewModel by lazy {
-        ViewModelProviders.of(this)[ArtistsViewModel::class.java]
+        ViewModelProviders.of(this, object: ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return ArtistsViewModel(LastfmWebApiImpl(application)) as T
+            }
+        })[ArtistsViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -4,13 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import isel.leic.i1920.pdm.li51n.lastfm.LastFmWebApi
 import isel.leic.i1920.pdm.li51n.lastfm.dto.ArtistDto
 import isel.leic.i1920.pdm.li51n.utils.AppError
 import org.geniuz.lastfm.LastfmWebApiImpl
 
 
-class ArtistsViewModel(application: Application) : AndroidViewModel(application) {
+class ArtistsViewModel(val lastfm: LastFmWebApi) : ViewModel() {
     var artists : LiveData<Array<ArtistDto>> = MutableLiveData(emptyArray())
 
     var error : LiveData<AppError> = MutableLiveData()
@@ -24,7 +25,4 @@ class ArtistsViewModel(application: Application) : AndroidViewModel(application)
             )
     }
 
-    val lastfm : LastFmWebApi by lazy {
-        LastfmWebApiImpl(application)
-    }
 }
