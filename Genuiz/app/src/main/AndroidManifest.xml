@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
+        android:name=".GeniuzApplication"
         >
         <activity android:name=".AlbumsActivity" android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".MainActivity">

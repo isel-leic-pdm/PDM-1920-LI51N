@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     val model : ArtistsViewModel by lazy {
         ViewModelProviders.of(this, object: ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ArtistsViewModel(LastfmWebApiImpl(application)) as T
+
+                return ArtistsViewModel(application.lastfmWebApi) as T
             }
         })[ArtistsViewModel::class.java]
     }
