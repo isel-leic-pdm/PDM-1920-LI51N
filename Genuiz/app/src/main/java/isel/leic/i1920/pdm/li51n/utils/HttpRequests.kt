@@ -12,12 +12,14 @@ import com.google.gson.Gson
 import isel.leic.i1920.pdm.li51n.lastfm.dto.SearchDto
 
 class HttpRequests(ctx: Context) {
+    val TAG = HttpRequests::class.java.simpleName
     // Instantiate the RequestQueue.
     val queue = Volley.newRequestQueue(ctx)
 
     val gson = Gson()
 
     inline fun <reified T> get(url: String, noinline onSuccess: (T) -> Unit, crossinline onError: (AppError) -> Unit) {
+        Log.i(TAG, "Request to ${url}")
         // Request a string response from the provided URL.
         val stringRequest = StringRequest(
             Request.Method.GET,

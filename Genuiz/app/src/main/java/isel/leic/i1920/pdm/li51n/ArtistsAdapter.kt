@@ -1,11 +1,14 @@
 package isel.leic.i1920.pdm.li51n
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import isel.leic.i1920.pdm.li51n.lastfm.dto.ArtistDto
 import isel.leic.i1920.pdm.li51n.viewmodel.ArtistsViewModel
 
@@ -20,7 +23,7 @@ class ArtistsAdapter(val model: ArtistsViewModel)
         // 2. Inflate parent com o artist_view
         // 3. Instanciar ViewHolder -> passando-lhe o TextView
         val artistsView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.artist_view, parent, false) as LinearLayout
+            .inflate(R.layout.artist_view, parent, false)
         return ArtistViewHolder(artistsView)
     }
 
@@ -31,10 +34,11 @@ class ArtistsAdapter(val model: ArtistsViewModel)
     }
 }
 
-class ArtistViewHolder(private val view: LinearLayout) : RecyclerView.ViewHolder(view) {
+class ArtistViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     private lateinit var artist: ArtistDto
-    private val txtArtistName: TextView = view.findViewById<TextView>(R.id.txtArtistName)
-    private val txtArtistUrl: TextView = view.findViewById<TextView>(R.id.txtArtistUrl)
+    private val txtArtistName: TextView = view.findViewById(R.id.txtArtistName)
+    private val txtArtistUrl: TextView = view.findViewById(R.id.txtArtistUrl)
+    private val artistImage: ImageView = view.findViewById(R.id.artistImage)
 
     init {
         view.setOnClickListener {
@@ -49,5 +53,7 @@ class ArtistViewHolder(private val view: LinearLayout) : RecyclerView.ViewHolder
         this.artist = artist
         txtArtistName.text = artist.name
         txtArtistUrl.text = artist.url
+        Log.i(TAG, "Image url ${artist.image[0].uri}")
+        Glide.with(view.context).load(artist.image[0].uri).override(120).into(artistImage);
     }
 }
